@@ -1,4 +1,4 @@
 calculator
 ==========
 
-CS200
+CS 200 Final Project
