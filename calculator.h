@@ -4,6 +4,8 @@
 #include <FL/Fl_Box.H>
 #include <FL/Fl_Button.H>
 
+#include "calc_button.h"
+
 #ifndef calculator_h
 #define calculator_h
 
@@ -12,7 +14,7 @@ private:
 protected:
 public:
 	calculator();
-	make_interface();	
+	int make_interface();	
 };
 
 #endif
