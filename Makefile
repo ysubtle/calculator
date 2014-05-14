@@ -13,7 +13,7 @@ CXXFLAGS = $(shell fltk-config --cxxflags ) -std=c++11 -I.
 LDFLAGS  = $(shell fltk-config --ldflags )
 LDSTATIC = $(shell fltk-config --ldstaticflags )
 
-OBJS = stack.o calculator.o calc_button.h
+OBJS = stack.o calculator.o calc_button.o
 
 .o:	$@.cpp $@.h
 	$(CXX) $(CXXFLAGS) $(DEBUG) -c $@.cpp
