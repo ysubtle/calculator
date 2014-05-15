@@ -5,7 +5,7 @@ calculator::calculator () {
 }
 
 int calculator::make_interface () {
-
+	std::cout << "Test" << std::endl;
 	std::vector<std::string> btn_values {
 		"+",
 		"-",
@@ -47,11 +47,15 @@ int calculator::make_interface () {
 		for (int i2 = 0; i2 < 4; i2++) {
 			offset_x = gutter_x + (i2 * (gutter_x + width));
 			offset_y = 190 + (i * (gutter_y + height));
-			Calc_Button* btn = new Calc_Button(offset_x, offset_y, width, height, "",
+			if (i < 3 || (i >= 3 && i2 < 3)) {
+				Calc_Button* btn = new Calc_Button(offset_x, offset_y, width, height, "",
 				id);
-			id++;
+				btn->copy_label(btn_values[id].c_str());
+				id++;
+			}
 		} 
 	}
+	Fl_Button* enter = new Fl_Button(306, 430, 70, 140, "Enter");
 
 	window->end();
 	window->show();
