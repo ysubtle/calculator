@@ -1,6 +1,8 @@
 #include "calculator.h"
 
 calculator::calculator () {
+	operands = new Stack();
+	operators = new Stack();
 	this->make_interface();
 }
 
@@ -49,9 +51,9 @@ int calculator::make_interface () {
 			offset_y = 190 + (i * (gutter_y + height));
 			if (i < 3 || (i >= 3 && i2 < 3)) {
 				Calc_Button* btn = new Calc_Button(offset_x, offset_y, width, height, "",
-				id, display);
+				btn_values[id], display, this);
 				btn->copy_label(btn_values[id].c_str());
-				btn->callback(Calc_Button::callback);
+				btn->callback(Calc_Button::cb_click, 0);
 				id++;
 			}
 		} 
@@ -62,4 +64,10 @@ int calculator::make_interface () {
 	window->end();
 	window->show();
 	return Fl::run();
+}
+
+void press (std::string val) {
+	if (val == "5") {
+		std::cout << "yes!" << std::endl;
+	}
 }

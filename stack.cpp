@@ -1,7 +1,6 @@
 #include "stack.h"
 
 Stack::Stack () {
-	std::vector<char> items;
 }
 
 char Stack::pop () {
