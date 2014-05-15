@@ -4,6 +4,9 @@
 #include <FL/Fl_Box.H>
 #include <FL/Fl_Button.H>
 
+#include <vector>
+#include <string>
+
 #include "calc_button.h"
 
 #ifndef calculator_h

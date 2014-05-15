@@ -30,7 +30,7 @@ int calculator::make_interface () {
 
 	Fl_Window* window = new Fl_Window(400, 600);
 
-	Fl_Button* display = new Fl_Button(352, 150);
+	Fl_Button* display = new Fl_Button(24, 20, 352, 150, "");
 
 	// Button Constants
 	int width = 70;
