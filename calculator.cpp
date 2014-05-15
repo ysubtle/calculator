@@ -30,7 +30,7 @@ int calculator::make_interface () {
 
 	Fl_Window* window = new Fl_Window(400, 600);
 
-	Fl_Button* display = new Fl_Button(24, 20, 352, 150, "");
+	display = new Fl_Button(24, 20, 352, 150, "");
 
 	// Button Constants
 	int width = 70;
@@ -49,13 +49,15 @@ int calculator::make_interface () {
 			offset_y = 190 + (i * (gutter_y + height));
 			if (i < 3 || (i >= 3 && i2 < 3)) {
 				Calc_Button* btn = new Calc_Button(offset_x, offset_y, width, height, "",
-				id);
+				id, display);
 				btn->copy_label(btn_values[id].c_str());
+				btn->callback(Calc_Button::callback);
 				id++;
 			}
 		} 
 	}
-	Fl_Button* enter = new Fl_Button(306, 430, 70, 140, "Enter");
+
+	enter = new Fl_Button(306, 430, 70, 140, "Enter");
 
 	window->end();
 	window->show();

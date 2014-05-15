@@ -16,6 +16,8 @@
 
 class calculator {
 private:
+	Fl_Button* display;
+	Fl_Button* enter;
 protected:
 public:
 	calculator();
