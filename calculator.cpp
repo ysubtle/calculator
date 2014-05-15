@@ -1,12 +1,13 @@
 #include "calculator.h"
 
-calculator::calculator () {
+
+Calculator::Calculator () {
 	operands = new Stack();
 	operators = new Stack();
 	this->make_interface();
 }
 
-int calculator::make_interface () {
+int Calculator::make_interface () {
 	std::cout << "Test" << std::endl;
 	std::vector<std::string> btn_values {
 		"+",

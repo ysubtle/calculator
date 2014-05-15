@@ -6,7 +6,9 @@
 class Stack {
 private:
 	std::vector<char> items;
+
 protected:
+	
 public:
 	Stack();
 	void push(char item);

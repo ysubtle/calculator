@@ -9,10 +9,10 @@ class Calc_Button : public Fl_Button {
 private:
 	std::string val;
 	Fl_Button* display;
-	calculator* calc;
+	Calculator* calc;
 public:
 	Calc_Button (int x, int y, int w, int h, const char* label,
-		std::string val, Fl_Button* display, calculator* const calc)
+		std::string val, Fl_Button* display, Calculator* const calc)
 	: Fl_Button (x, y, w, h, label) {
 		this->val = val;
 		this->display = display;

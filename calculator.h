@@ -21,7 +21,9 @@ private:
 	Fl_Button* enter;
 	Stack* operands;
 	Stack* operators;
+
 protected:
+	
 public:
 	calculator();
 	int make_interface();
