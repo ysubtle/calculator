@@ -1,6 +1,10 @@
 #include "calculator.h"
 #include <typeinfo>
 
+#include <iostream>
+#include <cmath> 
+#include <math.h> 
+
 Calculator::Calculator () {
 	operands = new Stack();
 	operators = new Stack();
@@ -103,3 +107,27 @@ bool in (std::string token, std::vector<std::string> list) {
 	}
 	return flag;
 }
+
+void Calculator::do_math (int op1, int op2, std::string op) {
+	if (op == "+") {
+		return op1 + op2;
+	}
+	if (op == "-") {
+		return op1 - op2;
+	}
+	if (op == "*") {
+		return op1 * op2;
+	}
+	if (op == "/") {
+		return op1 / op2;
+	}
+	if (op == "^") {
+		return std::pow(op1, op2);
+	}
+	if (op == "sqrt") {
+		return sqrt(op1);
+	}
+
+}
+
+
