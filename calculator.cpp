@@ -12,6 +12,7 @@ Calculator::Calculator () {
 	operands_stack = new Stack_C();
 	//Stack_C* operators = new Stack_C();
 	number = "";
+	error = "";
 	this->make_interface();
 }
 
@@ -38,7 +39,7 @@ int Calculator::make_interface () {
 	};
 
 
-	Fl_Window* window = new Fl_Window(400, 600);
+	Fl_Window* window = new Fl_Window(400, 700);
 
 	display = new Fl_Button(24, 20, 352, 150, "");
 
@@ -69,6 +70,11 @@ int Calculator::make_interface () {
 
 	enter = new Calc_Button(306, 430, 70, 140, "Enter",
 		"enter", display, this);
+	enter->callback(Calc_Button::cb_click, 0);
+
+	display_stack = new Fl_Button(gutter_x, 600 + gutter_y, 352, 60, "Empty Stack");
+
+	Fl_Box* title = new Fl_Box(gutter_x, 587, 352, 20, "Top 4 Elements of Stack");
 	//enter = new Fl_Button(306, 430, 70, 140, "Enter");
 	window->end();
 	window->show();
@@ -87,28 +93,40 @@ void Calculator::press (std::string val) {
 		"+-", "drop", "enter"
 	};
 
-	std::cout << "test1" << std::endl;
-
 	if (check_in(val, operands)) {
 		number.append(val);
 	} else if (check_in(val, operators)) {
-		operands_stack->push(number);
-		int i_1 = std::stoi(operands_stack->pop());
-		int i_2 = std::stoi(operands_stack->pop());
-		int result = this->do_math(i_1, i_2, val);
-		operands_stack->push(std::to_string(result));
+		if (number != "") {
+			operands_stack->push(number);
+		}	
+		if (operands_stack->size() < 2) {
+			std::cout << "There is not enough on the stack!" << std::endl;
+			error = "There is not enough on the stack!";
+		} else {
+			
+			float i_1 = std::stof(operands_stack->pop());
+			float i_2 = std::stof(operands_stack->pop());
+			float result = this->do_math(i_2, i_1, val);
+			operands_stack->push(std::to_string(result));
+			number = "";
+		}
 	} else if (val == "sqrt") {
-		operands_stack->push(number);
-		int i_1 = std::stoi(operands_stack->pop());
-		int result = this->do_math(i_1, 0, val);
+		if (number != "") {
+			operands_stack->push(number);
+		}
+		float i_1 = std::stoi(operands_stack->pop());
+		float result = this->do_math(i_1, 0, val);
 		operands_stack->push(std::to_string(result));
+		number = "";
 	} else if (check_in(val, special)) {
 		if (val == "enter") {
 			operands_stack->push(number);
 			number = "";
 		}
 		if (val == "drop") {
-			if (!operands_stack->is_empty()) {
+			if (error != "") {
+				error == "";
+			} else if (!operands_stack->is_empty()) {
 				operands_stack->pop();
 			}
 		}
@@ -125,13 +143,8 @@ void Calculator::press (std::string val) {
 			
 		}
 	}
-	std::cout << "test2" << std::endl;
 	this->update_display();
-	std::cout << "test3" << std::endl;
-
-	if (val == "5") {
-		std::cout << "yes!" << std::endl;
-	}
+	this->update_display_stack();
 }
 
 bool check_in (std::string token, std::vector<std::string> list) {
@@ -145,20 +158,23 @@ bool check_in (std::string token, std::vector<std::string> list) {
 }
 
 void Calculator::update_display () {
-	std::cout << "test6" << std::endl;
 	std::string display_str;
-	if (number == "") {
-		std::cout << operands_stack->peek().c_str() << std::endl;
+	if (error != "") {
+		display_str = error;
+		error = "";
+	} else if (number == "") {
 		display_str = operands_stack->peek();
-		
 	} else {
 		display_str = number;
 	}
 	display->copy_label(display_str.c_str());
-	std::cout << "test4" << std::endl;
 };
 
-int Calculator::do_math (int op1, int op2, std::string op) {
+void Calculator::update_display_stack () {
+	display_stack->copy_label(operands_stack->print().c_str());
+}
+
+float Calculator::do_math (float op1, float op2, std::string op) {
 	if (op == "+") {
 		return op1 + op2;
 	}

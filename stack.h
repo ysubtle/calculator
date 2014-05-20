@@ -20,6 +20,7 @@ public:
 	bool is_empty();
 	int size();
 	std::string peek();
+	std::string print();
 };
 
 #endif

@@ -46,3 +46,20 @@ std::string Stack_C::peek () {
 	}
 	return head->data;
 }
+
+std::string Stack_C::print () {
+	std::string stack_string = "";
+	if(this->is_empty()) {
+		return "Empty Stack";
+	} else {
+		Node* node_current = head;
+		stack_string.append(node_current->data);
+		for (int i = 0; i < length - 1 && i < 3; i++) {
+			stack_string.append(" / ");
+			node_current = node_current->next;
+			stack_string.append(node_current->data);
+		}
+		
+		return stack_string;
+	}
+}
