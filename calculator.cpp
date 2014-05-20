@@ -1,19 +1,21 @@
 #include "calculator.h"
-#include <typeinfo>
+
+#include "calc_button.h"
 
 #include <iostream>
 #include <cmath> 
 #include <math.h> 
 
+bool check_in (std::string, std::vector<std::string>);
+
 Calculator::Calculator () {
-	operands = new Stack();
-	operators = new Stack();
+	operands_stack = new Stack_C();
+	//Stack_C* operators = new Stack_C();
 	number = "";
 	this->make_interface();
 }
 
 int Calculator::make_interface () {
-	std::cout << "Test" << std::endl;
 	std::vector<std::string> btn_values {
 		"+",
 		"-",
@@ -65,7 +67,9 @@ int Calculator::make_interface () {
 		} 
 	}
 
-	enter = new Fl_Button(306, 430, 70, 140, "Enter");
+	enter = new Calc_Button(306, 430, 70, 140, "Enter",
+		"enter", display, this);
+	//enter = new Fl_Button(306, 430, 70, 140, "Enter");
 	window->end();
 	window->show();
 	return Fl::run();
@@ -83,70 +87,74 @@ void Calculator::press (std::string val) const {
 		"+-", "drop", "enter"
 	};
 
-	if (in(val, operands)) {
-		number.append(val);
-	} else if (in(val, operators)) {
-		operands.push(number);
-		int i_1 = std::stoi(operands.pop());
-		int i_2 = std::stoi(operands.pop());
+	std::cout << "test1" << std::endl;
+
+	if (check_in(val, operands)) {
+		//number.append(val);
+	} else if (check_in(val, operators)) {
+		operands_stack->push(number);
+		int i_1 = std::stoi(operands_stack->pop());
+		int i_2 = std::stoi(operands_stack->pop());
 		int result = this->do_math(i_1, i_2, val);
-		operands.push(std::to_string(result));
+		operands_stack->push(std::to_string(result));
 	} else if (val == "sqrt") {
-		operands.push(number);
-		int i_1 = std::stoi(operands.pop());
+		operands_stack->push(number);
+		int i_1 = std::stoi(operands_stack->pop());
 		int result = this->do_math(i_1, 0, val);
-		operands.push(std::to_string(result));
-	} else if (in(val, special)) {
+		operands_stack->push(std::to_string(result));
+	} else if (check_in(val, special)) {
 		if (val == "enter") {
-			operands.push(number);
-			number = "";
+			operands_stack->push(number);
+			//number = "";
 		}
 		if (val == "drop") {
-			if (!operands.is_empty()) {
-				operands.pop();
+			if (!operands_stack->is_empty()) {
+				operands_stack->pop();
 			}
 		}
 		if (val == "+-") {
-			if (!operands.is_empty()) {
-				std::string number = operands.pop();
-				if (number.at(0) == "-") {
+			if (!operands_stack->is_empty()) {
+				std::string number = operands_stack->pop();
+				if (number.at(0) == '-') {
 					number.erase(number.begin());
 				} else {
-					number.insert(number.begin(), "+");
+					number.insert(number.begin(), '-');
 				}
-				operands.push(number);
+				operands_stack->push(number);
 			}
 			
 		}
 	}
+	std::cout << "test2" << std::endl;
 	this->update_display();
+	std::cout << "test3" << std::endl;
 
 	if (val == "5") {
 		std::cout << "yes!" << std::endl;
 	}
 }
 
-bool in (std::string token, std::vector<std::string> list) {
+bool check_in (std::string token, std::vector<std::string> list) {
 	bool flag = false;
 	for (int i = 0; i < list.size(); i++) {
-		if (token = list[i]) {
+		if (token == list[i]) {
 			flag = true;
 		}
 	}
 	return flag;
 }
 
-void Calculator::update_display () {
-	std::string display_current;
+void Calculator::update_display () const{
+	std::cout << "test6" << std::endl;
 	if (number == "") {
-		display_current = operands.peek();
+		display->copy_label(operands_stack->peek().c_str());
 	} else {
-		display_current = number;
+		display->copy_label(number.c_str());
 	}
-	enter->copy_label(number);
+	std::cout << "test4" << std::endl;
 };
 
-void Calculator::do_math (int op1, int op2, std::string op) {
+int Calculator::do_math (int op1, int op2, std::string op) const {
 	if (op == "+") {
 		return op1 + op2;
 	}

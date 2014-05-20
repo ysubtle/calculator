@@ -38,8 +38,8 @@ public:
 		const Calculator* calc = btn->get_calculator();
 		std::string val = btn->get_value();
 		Fl_Button* display = btn->get_display();
-		const char* testing = val.c_str();
-		calc->press(testing);
+		//const char* testing = val.c_str();
+		calc->press(val);
 	}
 };
 

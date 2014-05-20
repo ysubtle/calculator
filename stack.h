@@ -1,22 +1,23 @@
 #include <vector>
 #include <string>
+#include <iostream>
 
 #ifndef stack_h
 #define stack_h
 
-class Stack {
+class Stack_C {
 private:
 	std::vector<std::string> items;
 
 protected:
 	
 public:
-	Stack();
+	Stack_C();
 	void push(std::string item);
-	char pop();
+	std::string pop();
 	bool is_empty();
 	int size();
-	char peek();
+	std::string peek();
 };
 
 #endif

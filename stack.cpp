@@ -1,17 +1,13 @@
 #include "stack.h"
 
-#include <iostream>
-#include <string>
-
-
-Stack::Stack () {
+Stack_C::Stack_C () {
 }
 
-void Stack::push(std::string item) {
+void Stack_C::push(std::string item) {
 	items.push_back(item);
 }
 
-char Stack::pop () {
+std::string Stack_C::pop () {
 	if (!this->is_empty()) {
 		items.pop_back();
 	} else {
@@ -19,7 +15,7 @@ char Stack::pop () {
 	}
 }
 
-bool Stack::is_empty () {
+bool Stack_C::is_empty () {
 	if (items.size() == 0) {
 		return true;
 	} else {
@@ -27,10 +23,11 @@ bool Stack::is_empty () {
 	}
 }
 
-int Stack::size () {
+int Stack_C::size () {
 	return items.size();
 }
 
-char Stack::peek () {
-	return items.back();
+std::string Stack_C::peek () {
+	//return items[items.size() - 1];
+	return "5";
 }

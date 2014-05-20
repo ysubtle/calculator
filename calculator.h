@@ -9,27 +9,29 @@
 #include <vector>
 #include <string>
 
-#include "calc_button.h"
+
 #include "stack.h"
 
 #ifndef calculator_h
 #define calculator_h
 
+class Calc_Button;
+
 class Calculator {
 private:
 	Fl_Button* display;
-	Fl_Button* enter;
-	Stack* operands;
-	Stack* operators;
+	Calc_Button* enter;
 	std::string number;
+	Stack_C* operands_stack;
+	std::string display_current;
 protected:
 	
 public:
 	Calculator();
 	int make_interface();
 	void press (std::string) const;	
-	void do_math (int, int, std::string);
-	void update_display();
+	int do_math (int, int, std::string) const;
+	void update_display() const;
 };
 
 #endif
