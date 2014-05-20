@@ -1,4 +1,5 @@
 #include "calculator.h"
+#include <typeinfo>
 
 Calculator::Calculator () {
 	operands = new Stack();
@@ -60,14 +61,14 @@ int Calculator::make_interface () {
 	}
 
 	enter = new Fl_Button(306, 430, 70, 140, "Enter");
-
+	std::cout << typeid(this).name() << std::endl;
 	window->end();
 	window->show();
 	return Fl::run();
 }
 
-void press (const char* val) const {
-//void press (std::string val) const {
+//void Calculator::press (const char* val) const {
+void Calculator::press (std::string val) const {
 	if (val == "5") {
 		std::cout << "yes!" << std::endl;
 	}
