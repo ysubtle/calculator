@@ -5,6 +5,7 @@
 #include <iostream>
 #include <cmath> 
 #include <math.h> 
+#include <stddef.h>
 
 bool check_in (std::string, std::vector<std::string>);
 
@@ -176,22 +177,22 @@ void Calculator::update_display_stack () {
 
 float Calculator::do_math (float op1, float op2, std::string op) {
 	if (op == "+") {
-		return op1 + op2;
+		return (op1 + op2);
 	}
 	if (op == "-") {
-		return op1 - op2;
+		return (op1 - op2);
 	}
 	if (op == "*") {
-		return op1 * op2;
+		return (op1 * op2);
 	}
 	if (op == "/") {
-		return op1 / op2;
+		return (op1 / op2);
 	}
 	if (op == "^") {
 		return pow(op1, op2);
 	}
 	if (op == "sqrt") {
 		return sqrt(op1);
-	}
 
+	}
 }
