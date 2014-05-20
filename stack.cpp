@@ -3,6 +3,10 @@
 Stack::Stack () {
 }
 
+void Stack::push(std::string item) {
+	items.push_back(item);
+}
+
 char Stack::pop () {
 	if (!this->is_empty()) {
 		items.pop_back();

@@ -61,7 +61,6 @@ int Calculator::make_interface () {
 	}
 
 	enter = new Fl_Button(306, 430, 70, 140, "Enter");
-	std::cout << typeid(this).name() << std::endl;
 	window->end();
 	window->show();
 	return Fl::run();
@@ -69,7 +68,38 @@ int Calculator::make_interface () {
 
 //void Calculator::press (const char* val) const {
 void Calculator::press (std::string val) const {
+	std::vector<std::string> operands {
+		"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"
+	};
+	std::vector<std::string> operators {
+		"+", "-", "*", "/", "^", "sqrt"
+	};
+	std::vector<std::string> special {
+		"+-", "drop", "enter"
+	};
+
+	if (in(val, operands)) {
+		operands.push(val);
+	} else if (in(val, operators)) {
+		int i_1 = std::stoi(operands.pop());
+		int i_2 = std::stoi(operands.pop());
+		int result = this->do_math(i_1, i_2, val);
+		operands.push(result);
+	} else {
+		
+	}
+
 	if (val == "5") {
 		std::cout << "yes!" << std::endl;
 	}
+}
+
+bool in (std::string token, std::vector<std::string> list) {
+	bool flag = false;
+	for (int i = 0; i < list.size(); i++) {
+		if (token = list[i]) {
+			flag = true;
+		}
+	}
+	return flag;
 }
