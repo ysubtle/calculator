@@ -6,6 +6,6 @@
 using namespace std;
 
 int main (int argc, char *argv[]) {
-	Calculator* c = new cal();
+	Calculator* c = new Calculator();
 	return 0;
 }

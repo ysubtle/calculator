@@ -27,7 +27,7 @@ protected:
 public:
 	Calculator();
 	int make_interface();
-	const void press (const char*);	
+	void press (std::string) const;	
 };
 
 #endif
