@@ -126,7 +126,7 @@ void Calculator::press (std::string val) {
 		}
 		if (val == "drop") {
 			if (error != "") {
-				error == "";
+				error = "";
 			} else if (!operands_stack->is_empty()) {
 				operands_stack->pop();
 			}
