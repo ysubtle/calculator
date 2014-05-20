@@ -29,9 +29,9 @@ protected:
 public:
 	Calculator();
 	int make_interface();
-	void press (std::string) const;	
-	int do_math (int, int, std::string) const;
-	void update_display() const;
+	void press (std::string);	
+	int do_math (int, int, std::string);
+	void update_display();
 };
 
 #endif

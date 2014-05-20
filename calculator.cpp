@@ -76,7 +76,7 @@ int Calculator::make_interface () {
 }
 
 //void Calculator::press (const char* val) const {
-void Calculator::press (std::string val) const {
+void Calculator::press (std::string val) {
 	std::vector<std::string> operands {
 		"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"
 	};
@@ -90,7 +90,7 @@ void Calculator::press (std::string val) const {
 	std::cout << "test1" << std::endl;
 
 	if (check_in(val, operands)) {
-		//number.append(val);
+		number.append(val);
 	} else if (check_in(val, operators)) {
 		operands_stack->push(number);
 		int i_1 = std::stoi(operands_stack->pop());
@@ -105,7 +105,7 @@ void Calculator::press (std::string val) const {
 	} else if (check_in(val, special)) {
 		if (val == "enter") {
 			operands_stack->push(number);
-			//number = "";
+			number = "";
 		}
 		if (val == "drop") {
 			if (!operands_stack->is_empty()) {
@@ -144,17 +144,21 @@ bool check_in (std::string token, std::vector<std::string> list) {
 	return flag;
 }
 
-void Calculator::update_display () const{
+void Calculator::update_display () {
 	std::cout << "test6" << std::endl;
+	std::string display_str;
 	if (number == "") {
-		display->copy_label(operands_stack->peek().c_str());
+		std::cout << operands_stack->peek().c_str() << std::endl;
+		display_str = operands_stack->peek();
+		
 	} else {
-		display->copy_label(number.c_str());
+		display_str = number;
 	}
+	display->copy_label(display_str.c_str());
 	std::cout << "test4" << std::endl;
 };
 
-int Calculator::do_math (int op1, int op2, std::string op) const {
+int Calculator::do_math (int op1, int op2, std::string op) {
 	if (op == "+") {
 		return op1 + op2;
 	}
