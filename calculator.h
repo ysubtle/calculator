@@ -21,13 +21,15 @@ private:
 	Fl_Button* enter;
 	Stack* operands;
 	Stack* operators;
-
+	std::string number;
 protected:
 	
 public:
 	Calculator();
 	int make_interface();
 	void press (std::string) const;	
+	void do_math (int, int, std::string);
+	void update_display();
 };
 
 #endif

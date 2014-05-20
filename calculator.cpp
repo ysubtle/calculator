@@ -8,6 +8,7 @@
 Calculator::Calculator () {
 	operands = new Stack();
 	operators = new Stack();
+	number = "";
 	this->make_interface();
 }
 
@@ -76,22 +77,49 @@ void Calculator::press (std::string val) const {
 		"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"
 	};
 	std::vector<std::string> operators {
-		"+", "-", "*", "/", "^", "sqrt"
+		"+", "-", "*", "/", "^"
 	};
 	std::vector<std::string> special {
 		"+-", "drop", "enter"
 	};
 
 	if (in(val, operands)) {
-		operands.push(val);
+		number.append(val);
 	} else if (in(val, operators)) {
+		operands.push(number);
 		int i_1 = std::stoi(operands.pop());
 		int i_2 = std::stoi(operands.pop());
 		int result = this->do_math(i_1, i_2, val);
-		operands.push(result);
-	} else {
-		
+		operands.push(std::to_string(result));
+	} else if (val == "sqrt") {
+		operands.push(number);
+		int i_1 = std::stoi(operands.pop());
+		int result = this->do_math(i_1, 0, val);
+		operands.push(std::to_string(result));
+	} else if (in(val, special)) {
+		if (val == "enter") {
+			operands.push(number);
+			number = "";
+		}
+		if (val == "drop") {
+			if (!operands.is_empty()) {
+				operands.pop();
+			}
+		}
+		if (val == "+-") {
+			if (!operands.is_empty()) {
+				std::string number = operands.pop();
+				if (number.at(0) == "-") {
+					number.erase(number.begin());
+				} else {
+					number.insert(number.begin(), "+");
+				}
+				operands.push(number);
+			}
+			
+		}
 	}
+	this->update_display();
 
 	if (val == "5") {
 		std::cout << "yes!" << std::endl;
@@ -107,6 +135,16 @@ bool in (std::string token, std::vector<std::string> list) {
 	}
 	return flag;
 }
+
+void Calculator::update_display () {
+	std::string display_current;
+	if (number == "") {
+		display_current = operands.peek();
+	} else {
+		display_current = number;
+	}
+	enter->copy_label(number);
+};
 
 void Calculator::do_math (int op1, int op2, std::string op) {
 	if (op == "+") {
@@ -129,5 +167,3 @@ void Calculator::do_math (int op1, int op2, std::string op) {
 	}
 
 }
-
-
