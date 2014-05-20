@@ -1,6 +1,5 @@
 #include "calculator.h"
 
-
 Calculator::Calculator () {
 	operands = new Stack();
 	operators = new Stack();
@@ -67,7 +66,8 @@ int Calculator::make_interface () {
 	return Fl::run();
 }
 
-void press (std::string val) {
+void press (const char* val) const {
+//void press (std::string val) const {
 	if (val == "5") {
 		std::cout << "yes!" << std::endl;
 	}

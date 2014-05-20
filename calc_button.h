@@ -5,14 +5,16 @@
 #ifndef calc_button_h
 #define calc_button_h
 
+#include "calculator.h"
+
 class Calc_Button : public Fl_Button {
 private:
 	std::string val;
 	Fl_Button* display;
-	Calculator* calc;
+	const Calculator* calc;
 public:
 	Calc_Button (int x, int y, int w, int h, const char* label,
-		std::string val, Fl_Button* display, Calculator* const calc)
+		std::string val, Fl_Button* display, const Calculator* calc)
 	: Fl_Button (x, y, w, h, label) {
 		this->val = val;
 		this->display = display;
@@ -23,10 +25,21 @@ public:
 		return this->display;
 	}
 
+	const Calculator* get_calculator () {
+		return this->calc;
+	}
+
+	std::string get_value () {
+		return this->val;
+	}
+
 	static void cb_click (Fl_Widget* w, void*) {
 		Calc_Button* btn = (Calc_Button*) w;
+		const Calculator* calc = btn->get_calculator();
+		std::string val = btn->get_value();
 		Fl_Button* display = btn->get_display();
-		this->calc->press(this->val);
+		const char* testing = val.c_str();
+		calc->press(testing);
 	}
 };
 

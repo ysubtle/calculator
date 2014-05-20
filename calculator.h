@@ -15,7 +15,7 @@
 #ifndef calculator_h
 #define calculator_h
 
-class calculator {
+class Calculator {
 private:
 	Fl_Button* display;
 	Fl_Button* enter;
@@ -25,7 +25,7 @@ private:
 protected:
 	
 public:
-	calculator();
+	Calculator();
 	int make_interface();
 	void press(std::string);	
 };
